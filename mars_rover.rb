@@ -27,7 +27,6 @@ def build_web_page(photo_data)
 
     body = ''
     photo_data.each do |photos, info|
-        puts "Key: #{photos}"
         info.each_with_index do |item,index|
             body += "\t\t\t\t<li><img src='#{item['img_src']}'></li>\n"
         end
@@ -45,8 +44,31 @@ def build_web_page(photo_data)
     page = head + body + foot
 end
 
+def photos_count(data_hash)
+
+    final_hash = {}
+    photo_counter = 1
+    data_hash.each do |photos, info|
+        info.each_with_index do |item,index|
+            item['camera'].each do |key, value|
+                if key == 'name' 
+                    if !(final_hash.key?(value))
+                        photo_counter = 0
+                    end
+                    photo_counter += 1
+                    final_hash[value] = photo_counter
+                end
+            end
+        end
+    end
+    final_hash
+end
 
 photo_data = get_rover_photos(link, api_key)
+
 File.write('index.html', build_web_page(photo_data))
+
+photos_count(photo_data)
+
 
 
