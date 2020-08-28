@@ -8,13 +8,24 @@ def get_rover_photos(url, key)
     info_photos = request(full_address)
 end
 
-# def build_web_page(data)
+def build_web_page(photo_data)
 
-# end
+    photo_data.each do |photos, info|
+        puts "Key: #{photos}"
+        info.each_with_index do |item,index|
+            puts "Image: #{item['img_src']}" if index == 0
+        #     body +=             
+        #     "\n\t\t\t<ul>    
+        #     <li><img src='#{item['img_src']}/398380645PRCLF0030000CCAM04010L1.PNG'></li>    
+        #     <li><img src='.../398381687EDR_F0030000CCAM05010M_.JPG'></li>
+        # </ul>"
+        end
+    end
+end
 
 
 photo_data = get_rover_photos(link, api_key)
-# build_web_page(photo_data)
+build_web_page(photo_data)
 # puts build_web_page
 
 
